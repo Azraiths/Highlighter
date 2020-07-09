@@ -21,7 +21,10 @@ extension Highlightable {
 
         let highlightRanges = inputText.ranges(of: text)
 
-        guard !highlightRanges.isEmpty else { return }
+        guard !highlightRanges.isEmpty else {
+			self.attributedTextValue = NSMutableAttributedString(string: inputText, attributes: normalAttributes)
+			return
+		}
 
         self.attributedTextValue = NSAttributedString.highlight(
             ranges: highlightRanges,

@@ -9,7 +9,7 @@
 import Foundation
 
 extension String {
-    func ranges(of string: String, options: CompareOptions = .caseInsensitive) -> [Range<Index>] {
+    func ranges(of string: String, options: CompareOptions = [.caseInsensitive, .diacriticInsensitive]) -> [Range<Index>] {
         var result: [Range<Index>] = []
         var start = startIndex
         while let range = range(of: string, options: options, range: start..<endIndex) {
