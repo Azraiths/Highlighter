@@ -11,7 +11,7 @@ import Foundation
 public protocol Highlightable: class {
     var textValue: String? { get }
     var attributedTextValue: NSAttributedString? { get set }
-
+    var wasHighlighted: Bool = false
     func highlight(text: String, normal normalAttributes: [NSAttributedString.Key : Any]?, highlight highlightAttributes: [NSAttributedString.Key : Any]?)
 }
 
@@ -25,7 +25,7 @@ extension Highlightable {
 			self.attributedTextValue = NSMutableAttributedString(string: inputText, attributes: normalAttributes)
 			return
 		}
-
+        self.wasHighlighted = true
         self.attributedTextValue = NSAttributedString.highlight(
             ranges: highlightRanges,
             at: text,
