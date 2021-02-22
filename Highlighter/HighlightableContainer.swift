@@ -29,15 +29,15 @@ extension HighlightableContainer {
             .forEach { $0.highlight(text: text, normal: normalAttributes, highlight: highlightAttributes)}
     }
     
-    public func highlight(text: String, normal normalAttributes: [NSAttributedString.Key : Any]?, highlight highlightAttributes: [NSAttributedString.Key : Any]?, type: Highlightable.Type?, prioritizedViews: [Highlightable]) {
+    public func highlight(text: String, normal normalAttributes: [NSAttributedString.Key : Any]?, highlight highlightAttributes: [NSAttributedString.Key : Any]?, type: Highlightable.Type?, target: Int) {
         let mirror = Mirror(reflecting: self)
         var priorityViewHightlighted = false
         mirror.children
             .compactMap { $0.value as? Highlightable }
-            .sorted { $0.tag > $1.tag }
+            .filter { $0.tag == target } 
             .forEach {
                 guard !priorityViewHightlighted else { return }
-                priorityViewHightlighted = $0.highlight(text: text, normal: normalAttributes, highlight: highlightAttributes) && ($0.tag != 0)
+                priorityViewHightlighted = $0.highlight(text: text, normal: normalAttributes, highlight: highlightAttributes) && ($0.tag != target)
             }
     }
 }
